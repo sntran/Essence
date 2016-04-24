@@ -71,14 +71,17 @@ var Stepper = (function (_React$Component) {
         key: 'continueStepper',
         value: function continueStepper(callback) {
             var nextStep = this.state.currentStep + 1;
-
-            this.setState({
-                selected: nextStep,
-                currentStep: nextStep
-            });
+            var advanced = true;
 
             if (callback) {
-                return callback(nextStep);
+                advanced = callback(nextStep) || true;
+            }
+
+            if (advanced) {
+                this.setState({
+                    selected: nextStep,
+                    currentStep: nextStep
+                });
             }
         }
     }, {

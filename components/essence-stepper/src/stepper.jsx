@@ -45,14 +45,17 @@ class Stepper extends React.Component {
 
     continueStepper(callback) {
         let nextStep = this.state.currentStep+1;
-
-        this.setState({
-            selected: nextStep,
-            currentStep: nextStep
-        });
+        let advanced = true;
 
         if (callback) {
-            return callback(nextStep);
+            advanced = callback(nextStep) || true;
+        }
+
+        if (advanced) {
+            this.setState({
+                selected: nextStep,
+                currentStep: nextStep
+            });
         }
     }
 
